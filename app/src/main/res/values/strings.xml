@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Health Geolocator</string>
+    <string name="map_api" translatable="false">
+        AIzaSyCb2dnK7d2GBDzosSTPrAvl5_hp3zoa0VE
+    </string>
+    <string name="enter_email_address">Enter Email Address</string>
+    <string name="choose_password">Choose Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="already_registered_login_here">Already Registered? Login here</string>
+    <string name="main_service2">Main Service2</string>
+    <string name="main_service1">Main service1</string>
+    <string name="main_service3">Main Service3</string>
+    <string name="main_service">Main Service</string>
+    <string name="othe_services">Othe Services</string>
+    <string name="hopital_longitude">Hopital Longitude</string>
+    <string name="save_hospital">Save Hospital</string>
+    <string name="hospital_latitude">Hospital Latitude</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="isAdmin">mkKAMX7ORZW18WFoMO9iSvn5rXb2</string>
+</resources>
