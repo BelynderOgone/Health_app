@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.models;
 
 public class hospitals {
     private String hId;
@@ -6,17 +6,22 @@ public class hospitals {
     private String lat;
     private String longi;
     private String kephLevel;
+    private String servicesOfferedCount;
 
     public hospitals() {
     }
 
-    public hospitals(String mHId, String mName, String mLat, String mLongi, String mKephLevel) {
+    public hospitals(String mHId, String mName, String mLat, String mLongi, String mKephLevel, String mServicesCountLevel) {
         this.hId = mHId;
         this.name = mName;
         this.lat = mLat;
         this.longi = mLongi;
 
         this.kephLevel = mKephLevel;
+    }
+
+    public String getServicesOfferedCount() {
+        return servicesOfferedCount;
     }
 
     public String gethId() {
@@ -35,8 +40,12 @@ public class hospitals {
         return longi;
     }
 
-    public String getOtherS() {
+    public String getKephLevel() {
         return kephLevel;
+    }
+
+    public void setServicesOfferedCount(String servicesOfferedCount) {
+        this.servicesOfferedCount = servicesOfferedCount;
     }
 
     public void sethId(String hId) {
@@ -55,7 +64,7 @@ public class hospitals {
         this.longi = longi;
     }
 
-    public void setOtherS(String kephLevel) {
+    public void setKephLevel(String kephLevel) {
         this.kephLevel = kephLevel;
     }
 }

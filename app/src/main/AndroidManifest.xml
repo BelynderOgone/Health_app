@@ -14,24 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Reg"></activity>
+        <activity android:name=".admin.Reg"/>
         <activity android:name=".Services" />
-        <activity android:name=".Admin" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".admin.Admin" />
+        <activity android:name=".auth.SignUp" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api" />
 
         <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".auth.LoginActivity" />
     </application>
 
 </manifest>

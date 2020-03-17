@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/item_number"
+        android:id="@+id/hospital_name"
+        android:text="Chulaimbo Hospital"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:textSize="18sp"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:layout_margin="5dp"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/keph_level"
+        android:text="KEPH level 3"
+        android:textSize="13sp"
+        style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="5dp"
         android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/services_offered_count"
+        android:text="9 Services"
+        android:textSize="13sp"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
 </LinearLayout>

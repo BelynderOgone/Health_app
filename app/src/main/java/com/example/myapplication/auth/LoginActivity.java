@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.auth;
 
 
 import android.content.Intent;
@@ -12,9 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
+import com.example.myapplication.admin.Admin;
+import com.example.myapplication.admin.Reg;
+import com.example.myapplication.Services;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -84,21 +87,28 @@ public class LoginActivity extends AppCompatActivity {
             emailId.requestFocus();
             return;
         }loader.setVisibility(View.VISIBLE);
+
+        btnSignIn.setClickable(false);
        mAuth.signInWithEmailAndPassword(mail, passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
            @Override
            public void onComplete(@NonNull Task<AuthResult> task) {
                loader.setVisibility(View.GONE);
+               btnSignIn.setClickable(true);
+
+
                if (task.isSuccessful()) {
                    //check if is admin
                   String admin = mAuth.getUid();
-                  String IsAdmin = "mskEczZSSnQH0DEsdaEHOaVbpaI2";
-                  if(admin.matches(IsAdmin)){
-                      Intent intent = new Intent(LoginActivity.this, Reg.class);
+                  //String IsAdmin = "mskEczZSSnQH0DEsdaEHOaVbpaI2";
+                  if(admin.matches("NXKN1BArRygzu2nKQvZ6bFT5day1")){
+                      Intent intent = new Intent(LoginActivity.this, Admin.class);
                       startActivity(intent);
+                      finish();
                   }else{
                    Toast.makeText(LoginActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
                    Intent intent = new Intent(LoginActivity.this, Services.class);
                    startActivity(intent);
+                   finish(); //Kill login activity to avoid back-pressing to the login activity.
                   }
                }  else{
                    Toast.makeText(LoginActivity.this,"Login Error, Please Login Again",Toast.LENGTH_SHORT).show();

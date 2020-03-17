@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.admin;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.R;
 import com.example.myapplication.models.hospitals;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +33,7 @@ public class Reg extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reg);
+        setContentView(R.layout.activity_add_hospital);
 
 
         save = findViewById(R.id.btn_save);
@@ -52,25 +53,17 @@ public class Reg extends AppCompatActivity {
         name = findViewById(R.id.hsp_name);
         latitude = findViewById(R.id.hsp_lat);
         longitude = findViewById(R.id.hsp_logi);
-        main_service = findViewById(R.id.main_service);
-        main_srv1 = findViewById(R.id.main_s1);
-        main_srv2 = findViewById(R.id.mains2);
-        main_serv3 = findViewById(R.id.main_s3);
-        other_srvc = findViewById(R.id.other_services);
+
 
 
         String h_name = name.getText().toString().trim();
         String h_lat = latitude.getText().toString().trim();
         String h_long = longitude.getText().toString().trim();
-        String h_service = main_service.getText().toString().trim();
-        String h_service1 = main_srv1.getText().toString().trim();
-        String h_service2 = main_srv2.getText().toString().trim();
-        String h_service3 = main_serv3.getText().toString().trim();
-        String other_services = other_srvc.getText().toString().trim();
+
 
         String hId = hospitaldb.push().getKey();
 
-        hospitals hospitals = new hospitals(hId, h_name, h_lat, h_long, h_service, h_service1, h_service2, h_service3, other_services);
+        hospitals hospitals = new hospitals(hId, h_name, h_lat, h_long, "", "");
 
         hospitaldb.child(hId).setValue(hospitals);
         hospitaldb.addChildEventListener(new ChildEventListener() {

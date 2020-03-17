@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="350dp"
     tools:context=".admin.Reg">
+
     <EditText
         android:id="@+id/hsp_name"
         android:layout_width="0dp"
@@ -14,104 +16,94 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hospital_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/hsp_lat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hospital_latitude"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/hsp_name"
         app:layout_constraintStart_toStartOf="@+id/hsp_name"
-        app:layout_constraintTop_toBottomOf="@+id/hsp_name"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/hsp_name" />
 
     <EditText
         android:id="@+id/hsp_logi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hopital_longitude"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/hsp_lat"
         app:layout_constraintStart_toStartOf="@+id/hsp_lat"
-        app:layout_constraintTop_toBottomOf="@+id/hsp_lat"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/hsp_lat" />
 
-    <EditText
-        android:id="@+id/main_service"
+    <TextView
+        android:id="@+id/select_keph_level_heading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/main_service"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/hsp_logi"
+       android:textStyle="bold"
+        android:text="KEPH Level"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/hsp_logi"
-        app:layout_constraintTop_toBottomOf="@+id/hsp_logi"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/hsp_logi" />
 
-    <EditText
-        android:id="@+id/main_s1"
+    <Spinner
+        android:id="@+id/keph_level_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select_keph_level_heading" />
+
+
+    <TextView
+        android:id="@+id/select_service_heading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/main_service1"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/main_service"
-        app:layout_constraintStart_toStartOf="@+id/main_service"
-        app:layout_constraintTop_toBottomOf="@+id/main_service"
-        android:autofillHints="" />
+        android:text="Select Services"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keph_level_spinner" />
 
-    <EditText
-        android:id="@+id/mains2"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/services_list_recycler"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/main_service2"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/main_s1"
-        app:layout_constraintStart_toStartOf="@+id/main_s1"
-        app:layout_constraintTop_toBottomOf="@+id/main_s1"
-        android:autofillHints="" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select_service_heading" />
 
-    <EditText
-        android:id="@+id/main_s3"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btn_dismiss"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/main_service3"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/mains2"
-        app:layout_constraintStart_toStartOf="@+id/mains2"
-        app:layout_constraintTop_toBottomOf="@+id/mains2"
-        android:autofillHints="" />
-
-    <EditText
-        android:id="@+id/other_services"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/othe_services"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/main_s3"
-        app:layout_constraintStart_toStartOf="@+id/main_s3"
-        app:layout_constraintTop_toBottomOf="@+id/main_s3"
-        android:autofillHints="" />
+        android:layout_marginTop="16dp"
+        android:text="Dismiss"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@id/btn_save"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/services_list_recycler"
+        />
 
     <Button
         android:id="@+id/btn_save"
@@ -119,9 +111,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/save_hospital"
-        app:layout_constraintEnd_toEndOf="@+id/other_services"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="@+id/other_services"
-        app:layout_constraintTop_toBottomOf="@+id/other_services" />
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toEndOf="@id/btn_dismiss"
+        app:layout_constraintTop_toBottomOf="@+id/services_list_recycler"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
