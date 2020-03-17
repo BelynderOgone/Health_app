@@ -10,14 +10,24 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapters.AdminServicesAdapter;
 import com.example.myapplication.adapters.MyServicesRecyclerViewAdapter;
 import com.example.myapplication.models.ServicesModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -36,6 +46,14 @@ public class ServicesFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     private ArrayList<ServicesModel> servicesModelArrayList;
+
+    //Creating an instance
+    FirebaseDatabase database;
+    DatabaseReference servicesDatabase;
+    AdminServicesAdapter adminServicesAdapter;
+    RecyclerView servicesRecycler;
+    TextView nothingLoadedServices;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,6 +76,8 @@ public class ServicesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        servicesModelArrayList = new ArrayList<>();
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -74,13 +94,13 @@ public class ServicesFragment extends Fragment {
         ab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addServiceDialog.showDialog(getActivity());
+                addServiceDialog.showDialog(getActivity(), getContext());
             }
         });
-
+        initView(view);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+      /*  if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
@@ -89,8 +109,44 @@ public class ServicesFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyServicesRecyclerViewAdapter(servicesModelArrayList, mListener));
-        }
+        }*/
         return view;
+    }
+
+    private void initView(View view) {
+        database = FirebaseDatabase.getInstance();
+        servicesDatabase = database.getReference("services");
+        servicesRecycler = view.findViewById(R.id.recycler_list_services);
+        nothingLoadedServices = view.findViewById(R.id.nothing_loaded_service);
+
+        servicesRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        servicesDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                servicesModelArrayList.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    ServicesModel serviceModel = new ServicesModel();
+                    serviceModel.setServiceId(dataSnapshot1.getKey());
+                    Log.d("INJECTING", dataSnapshot1.getValue().toString());
+                    serviceModel.setServiceName(dataSnapshot1.getValue().toString());
+                    servicesModelArrayList.add(serviceModel);
+                }
+                adminServicesAdapter = new AdminServicesAdapter(getContext(), servicesModelArrayList);
+                servicesRecycler.setAdapter(adminServicesAdapter);
+                adminServicesAdapter.notifyDataSetChanged();
+                if (servicesModelArrayList.isEmpty())
+                    nothingLoadedServices.setVisibility(View.VISIBLE);
+                else
+                    nothingLoadedServices.setVisibility(View.GONE);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

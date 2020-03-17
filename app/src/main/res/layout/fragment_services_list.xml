@@ -3,11 +3,12 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="80dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/recycler_list_services"
         android:name="com.example.myapplication.admin.ServicesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,4 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_input_add" />
+
+    <TextView
+        android:id="@+id/nothing_loaded_service"
+        android:text="No service loaded."
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

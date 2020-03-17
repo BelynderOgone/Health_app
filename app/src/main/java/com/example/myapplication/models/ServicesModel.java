@@ -8,7 +8,7 @@ public class ServicesModel {
     private String serviceName;
     private String offeredInCountFacilities;
 
-    ServicesModel() {
+    public ServicesModel() {
     }
 
     ServicesModel(String mServiceId, String mServiceName, String mOfferedInCountFacilities) {

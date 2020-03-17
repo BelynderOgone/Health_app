@@ -99,8 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                if (task.isSuccessful()) {
                    //check if is admin
                   String admin = mAuth.getUid();
-                  //String IsAdmin = "mskEczZSSnQH0DEsdaEHOaVbpaI2";
-                  if(admin.matches("NXKN1BArRygzu2nKQvZ6bFT5day1")){
+                  String IsAdmin = "mskEczZSSnQH0DEsdaEHOaVbpaI2";
+                  if(admin.matches("NXKN1BArRygzu2nKQvZ6bFT5day1") || admin.matches(IsAdmin)){
                       Intent intent = new Intent(LoginActivity.this, Admin.class);
                       startActivity(intent);
                       finish();

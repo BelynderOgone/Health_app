@@ -2,12 +2,9 @@ package com.example.myapplication.admin;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.myapplication.R;
 
