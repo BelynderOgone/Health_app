@@ -8,16 +8,26 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapters.AdminServicesAdapter;
 import com.example.myapplication.adapters.MyHospitalRecyclerViewAdapter;
+import com.example.myapplication.models.ServicesModel;
 import com.example.myapplication.models.hospitals;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -34,6 +44,13 @@ public class HospitalFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     private ArrayList<hospitals> hospitalsArrayList;
+
+    //Creating an instance
+    FirebaseDatabase database;
+    DatabaseReference servicesDatabase;
+    MyHospitalRecyclerViewAdapter adminHospitalAdapter;
+    RecyclerView hospitalRecycler;
+    TextView nothinLoadedHospitals;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,7 +72,7 @@ public class HospitalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        hospitalsArrayList = new ArrayList<>();
 
 
         if (getArguments() != null) {
@@ -74,11 +91,13 @@ public class HospitalFragment extends Fragment {
         ab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addHospitalDialog.showDialog(getActivity());
+                addHospitalDialog.showDialog(getActivity(), getContext());
             }
         });
 
-        // Set the adapter
+        initView(view);
+
+        /* Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -88,8 +107,57 @@ public class HospitalFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyHospitalRecyclerViewAdapter(hospitalsArrayList, mListener));
-        }
+        }*/
         return view;
+    }
+
+    private void initView(View view) {
+        database = FirebaseDatabase.getInstance();
+        servicesDatabase = database.getReference("hospitals");
+        hospitalRecycler = view.findViewById(R.id.list_hospital_recycler);
+        nothinLoadedHospitals = view.findViewById(R.id.nothing_loaded_hospital);
+
+        hospitalRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        servicesDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                hospitalsArrayList.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    hospitals hospitalModel = new hospitals();
+                    hospitalModel.sethId(dataSnapshot1.getKey());
+                    //Log.d("SERVICES", dataSnapshot1.child("sericesOfferedList").getChildren());
+                    hospitalModel.setName(dataSnapshot1.child("name").getValue().toString());
+                    List<ServicesModel> loadedServices = new ArrayList<>();
+
+                    for (DataSnapshot service : dataSnapshot1.child("servicesOfferedList").getChildren()) {
+                        ServicesModel offered = new ServicesModel();
+                        offered.setServiceName(service.child("serviceName").getValue().toString());
+                        loadedServices.add(offered);
+
+                    }
+                    hospitalModel.setServicesOfferedList(loadedServices);
+                    hospitalModel.setKephLevel(dataSnapshot1.child("kephLevel").getValue().toString());
+                    hospitalModel.setLat(Double.parseDouble(dataSnapshot1.child("lat").getValue().toString()));
+                    hospitalModel.setLongi(Double.parseDouble(dataSnapshot1.child("longi").getValue().toString()));
+
+                    hospitalsArrayList.add(hospitalModel);
+                }
+                adminHospitalAdapter = new MyHospitalRecyclerViewAdapter(hospitalsArrayList, mListener);
+                hospitalRecycler.setAdapter(adminHospitalAdapter);
+                adminHospitalAdapter.notifyDataSetChanged();
+                if (hospitalsArrayList.isEmpty())
+                    nothinLoadedHospitals.setVisibility(View.VISIBLE);
+                else
+                    nothinLoadedHospitals.setVisibility(View.GONE);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

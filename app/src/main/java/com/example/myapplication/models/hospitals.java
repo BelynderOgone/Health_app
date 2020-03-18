@@ -1,27 +1,29 @@
 package com.example.myapplication.models;
 
+import java.util.List;
+
 public class hospitals {
     private String hId;
     private String name;
-    private String lat;
-    private String longi;
+    private Double lat;
+    private Double longi;
     private String kephLevel;
-    private String servicesOfferedCount;
+    private List<ServicesModel> servicesOfferedList;
 
     public hospitals() {
     }
 
-    public hospitals(String mHId, String mName, String mLat, String mLongi, String mKephLevel, String mServicesCountLevel) {
+    public hospitals(String mHId, String mName, Double mLat, Double mLongi, String mKephLevel, List<ServicesModel> mServicesCountList) {
         this.hId = mHId;
         this.name = mName;
         this.lat = mLat;
         this.longi = mLongi;
-
         this.kephLevel = mKephLevel;
+        this.servicesOfferedList = mServicesCountList;
     }
 
-    public String getServicesOfferedCount() {
-        return servicesOfferedCount;
+    public List<ServicesModel> getServicesOfferedList() {
+        return servicesOfferedList;
     }
 
     public String gethId() {
@@ -32,11 +34,11 @@ public class hospitals {
         return name;
     }
 
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public String getLongi() {
+    public Double getLongi() {
         return longi;
     }
 
@@ -44,8 +46,8 @@ public class hospitals {
         return kephLevel;
     }
 
-    public void setServicesOfferedCount(String servicesOfferedCount) {
-        this.servicesOfferedCount = servicesOfferedCount;
+    public void setServicesOfferedList(List<ServicesModel> servicesOfferedList) {
+        this.servicesOfferedList = servicesOfferedList;
     }
 
     public void sethId(String hId) {
@@ -56,11 +58,11 @@ public class hospitals {
         this.name = name;
     }
 
-    public void setLat(String lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public void setLongi(String longi) {
+    public void setLongi(Double longi) {
         this.longi = longi;
     }
 

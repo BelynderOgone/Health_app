@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="350dp"
-    tools:context=".admin.Reg">
+    android:minWidth="350dp">
 
     <EditText
         android:id="@+id/hsp_name"
@@ -29,10 +28,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hospital_latitude"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintEnd_toEndOf="@+id/hsp_name"
         app:layout_constraintStart_toStartOf="@+id/hsp_name"
         app:layout_constraintTop_toBottomOf="@+id/hsp_name" />
@@ -42,10 +40,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:autofillHints=""
+
         android:ems="10"
         android:hint="@string/hopital_longitude"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/hsp_lat"
         app:layout_constraintStart_toStartOf="@+id/hsp_lat"
         app:layout_constraintTop_toBottomOf="@+id/hsp_lat" />
@@ -62,21 +60,29 @@
         app:layout_constraintStart_toStartOf="@+id/hsp_logi"
         app:layout_constraintTop_toBottomOf="@+id/hsp_logi" />
 
+    <Space
+        android:id="@+id/keph_spacing"
+        app:layout_constraintTop_toBottomOf="@id/select_keph_level_heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="15dp"/>
+
     <Spinner
         android:id="@+id/keph_level_spinner"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/select_keph_level_heading" />
+        app:layout_constraintTop_toBottomOf="@id/keph_spacing" />
 
 
     <TextView
         android:id="@+id/select_service_heading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Select Services"
+        android:layout_marginTop="15dp"
+        android:text="Select Services Offered:"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="18sp"
@@ -86,11 +92,24 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/services_list_recycler"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:maxHeight="300dp"
+        android:minHeight="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/select_service_heading" />
+
+    <TextView
+        android:id="@+id/services_not_loaded_in_add_hospital"
+        android:text="Services not loaded or empty."
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/services_list_recycler"/>
 
     <Button
         android:id="@+id/btn_dismiss"
@@ -99,10 +118,11 @@
         android:layout_marginTop="16dp"
         android:text="Dismiss"
         android:textAllCaps="false"
+
         app:layout_constraintEnd_toStartOf="@id/btn_save"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/services_list_recycler"
+        app:layout_constraintTop_toBottomOf="@+id/services_not_loaded_in_add_hospital"
         />
 
     <Button
@@ -115,8 +135,14 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toEndOf="@id/btn_dismiss"
-        app:layout_constraintTop_toBottomOf="@+id/services_list_recycler"
+        app:layout_constraintTop_toBottomOf="@+id/services_not_loaded_in_add_hospital"
         />
+    <Space
+        app:layout_constraintTop_toBottomOf="@id/btn_save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="20dp"/>
 
 
 

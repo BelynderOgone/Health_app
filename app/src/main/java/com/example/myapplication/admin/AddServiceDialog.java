@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.ServicesModel;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -80,8 +81,11 @@ public class AddServiceDialog {
         String hId = servicesDatabase.push().getKey();
         //Starting the transaction service
 
+        ServicesModel newService = new ServicesModel();
+        newService.setServiceName(serviceName);
+
         if (hId != null) {
-            servicesDatabase.child(hId).setValue(serviceName);
+            servicesDatabase.child(hId).setValue(newService);
             progressDialog.show();
         }
 

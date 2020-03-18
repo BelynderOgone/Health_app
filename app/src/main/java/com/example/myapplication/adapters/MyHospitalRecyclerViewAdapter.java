@@ -39,8 +39,10 @@ public class MyHospitalRecyclerViewAdapter extends RecyclerView.Adapter<MyHospit
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
+
+        int count = mValues.get(position).getServicesOfferedList().size();
         holder.mHospitalName.setText(mValues.get(position).getName());
-        holder.mNumberOfServicesOffered.setText(mValues.get(position).getServicesOfferedCount());
+        holder.mNumberOfServicesOffered.setText(Integer.toString(count) + " Service(s).");
         holder.mKephLevel.setText(mValues.get(position).getKephLevel());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

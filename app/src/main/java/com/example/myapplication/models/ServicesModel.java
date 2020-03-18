@@ -6,15 +6,13 @@ This is a model class for holding a particular service data as an 'Instance'
 public class ServicesModel {
     private String serviceId;
     private String serviceName;
-    private String offeredInCountFacilities;
 
     public ServicesModel() {
     }
 
-    ServicesModel(String mServiceId, String mServiceName, String mOfferedInCountFacilities) {
+    ServicesModel(String mServiceId, String mServiceName) {
         this.serviceId = mServiceId;
         this.serviceName = mServiceName;
-        this.offeredInCountFacilities = mOfferedInCountFacilities;
     }
 
     public void setServiceId(String serviceId) {
@@ -33,11 +31,4 @@ public class ServicesModel {
         return serviceName;
     }
 
-    public String getOfferedInCountFacilities() {
-        return offeredInCountFacilities;
-    }
-
-    public void setOfferedInCountFacilities(String offeredInCountFacilities) {
-        this.offeredInCountFacilities = offeredInCountFacilities;
-    }
 }

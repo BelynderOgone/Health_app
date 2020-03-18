@@ -34,7 +34,6 @@ public class MyServicesRecyclerViewAdapter extends RecyclerView.Adapter<MyServic
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mServicesName.setText(mValues.get(position).getServiceName());
-        holder.mOfferedInFacilities.setText(mValues.get(position).getOfferedInCountFacilities());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,14 +55,12 @@ public class MyServicesRecyclerViewAdapter extends RecyclerView.Adapter<MyServic
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mServicesName;
-        public final TextView mOfferedInFacilities;
         public ServicesModel mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mServicesName = (TextView) view.findViewById(R.id.service_offered);
-            mOfferedInFacilities = (TextView) view.findViewById(R.id.offered_in_count_facilities);
         }
 
     }
