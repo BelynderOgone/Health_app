@@ -47,7 +47,7 @@ public class HospitalFragment extends Fragment {
 
     //Creating an instance
     FirebaseDatabase database;
-    DatabaseReference servicesDatabase;
+    DatabaseReference hospitalDatabase;
     MyHospitalRecyclerViewAdapter adminHospitalAdapter;
     RecyclerView hospitalRecycler;
     TextView nothinLoadedHospitals;
@@ -97,28 +97,18 @@ public class HospitalFragment extends Fragment {
 
         initView(view);
 
-        /* Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyHospitalRecyclerViewAdapter(hospitalsArrayList, mListener));
-        }*/
+
         return view;
     }
 
     private void initView(View view) {
         database = FirebaseDatabase.getInstance();
-        servicesDatabase = database.getReference("hospitals");
+        hospitalDatabase = database.getReference("hospitals");
         hospitalRecycler = view.findViewById(R.id.list_hospital_recycler);
         nothinLoadedHospitals = view.findViewById(R.id.nothing_loaded_hospital);
 
         hospitalRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        servicesDatabase.addValueEventListener(new ValueEventListener() {
+        hospitalDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

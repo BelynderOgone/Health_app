@@ -4,14 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.models.ServicesModel;
+import com.example.myapplication.models.hospitals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,58 +20,82 @@ import java.util.List;
 
 //When new hospital is being added, the admin should select services offered.
 public class SelectFacilityDialogAdapter extends RecyclerView.Adapter<SelectFacilityDialogAdapter.ItemViewHolder> {
-    private List<ServicesModel> servicesModelList;
+    private List<hospitals> hospitalsList;
     private Context mContext;
 
     //When items are selected, store them in this list and update when unchecked.
-    private List<String> selectedServicesForHospital;
+
+    private OnBluetoothDeviceClickedListener mBluetoothClickListener;
+
+    public void setOnBluetoothDeviceClickedListener(OnBluetoothDeviceClickedListener l) {
+        mBluetoothClickListener = l;
+    }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_single_entry_to_select_offered_service, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_hospital, parent, false);
+
         return new ItemViewHolder(view);
     }
 
-    public List<String> getSelectedServicesForHospital() {
-            return selectedServicesForHospital;
+    public interface OnBluetoothDeviceClickedListener {
+        void onBluetoothDeviceClicked(hospitals selectedHospital);
     }
 
-    public SelectFacilityDialogAdapter(Context mContext, List<ServicesModel> mServiceModelList) {
+
+    public SelectFacilityDialogAdapter(Context mContext, List<hospitals> mHospitalsList) {
         this.mContext = mContext;
-        this.servicesModelList = mServiceModelList;
+        this.hospitalsList = mHospitalsList;
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        final ServicesModel servicesModel = servicesModelList.get(position);
-        holder.mTvName.setText(servicesModel.getServiceName());
-        selectedServicesForHospital = new ArrayList<>();
+        final hospitals hospitalsSelected = hospitalsList.get(position);
 
-        holder.mSelectedService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    selectedServicesForHospital.add(servicesModel.getServiceName());
-                } else {
-                    selectedServicesForHospital.remove(servicesModel.getServiceName());
+            public void onClick(View v) {
+                if (mBluetoothClickListener != null) {
+
+                    mBluetoothClickListener.onBluetoothDeviceClicked(hospitalsSelected);
                 }
             }
         });
+
+        holder.mFacilityName.setText(hospitalsSelected.getName());
+
+        holder.mKephLevel.setText(hospitalsSelected.getKephLevel());
+
+        ArrayList<String> servicesFiltered = new ArrayList<>();
+        for (ServicesModel singleList : hospitalsSelected.getServicesOfferedList()) {
+
+            servicesFiltered.add(singleList.getServiceName());
+        }
+
+        String concatinated = servicesFiltered.toString().replace(", ", ",").replaceAll("[\\[.\\]]", "");
+
+        holder.mServicesList.setText(concatinated);
+
+
     }
+
 
     @Override
     public int getItemCount() {
-        return servicesModelList.size();
+        return hospitalsList.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView mTvName;
-        CheckBox mSelectedService;
+        TextView mFacilityName;
+        TextView mKephLevel;
+        TextView mServicesList;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            mTvName = itemView.findViewById(R.id.service_name_list_item_select);
-            mSelectedService = itemView.findViewById(R.id.select_offered_service_checkbox);
+            mFacilityName = itemView.findViewById(R.id.hospital_name);
+            mKephLevel = itemView.findViewById(R.id.keph_level);
+            mServicesList = itemView.findViewById(R.id.services_offered_count);
 
         }
     }
